@@ -1,0 +1,15 @@
+# GIMP gimp-crop-tool options
+
+(aspect-denominator 10)
+(aspect-numerator 16)
+(desired-fixed-size-height 1280)
+(desired-fixed-size-width 800)
+(desired-fixed-width 1280)
+(overridden-fixed-aspect yes)
+(overridden-fixed-size yes)
+(foreground
+    (color "R'G'B'A u8" 4 "o\274o\377" 0))
+(pattern "Pine")
+(delete-pixels yes)
+
+# end of gimp-crop-tool options

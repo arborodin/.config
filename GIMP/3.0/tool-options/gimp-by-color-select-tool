@@ -1,0 +1,6 @@
+# GIMP gimp-by-color-select-tool options
+
+(operation add)
+(threshold 0)
+
+# end of gimp-by-color-select-tool options

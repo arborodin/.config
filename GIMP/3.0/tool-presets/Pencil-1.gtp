@@ -1,0 +1,29 @@
+# GIMP tool preset file
+
+(icon-name "gimp-tool-pencil")
+(name "Pencil #2")
+(tool-options "GimpPencilOptions"
+    (tool "gimp-pencil-tool")
+    (foreground
+        (color "R'G'B'A u8" 4 "\377\224i\377" 0))
+    (background
+        (color "R'G'B'A u8" 4 "cR\61\377" 0))
+    (opacity 0.5)
+    (brush "2. Hardness 050")
+    (dynamics "Pressure Size")
+    (pattern "Pine")
+    (gradient "FG to BG (RGB)")
+    (palette "Colour History")
+    (brush-size 1)
+    (brush-hardness 0.5))
+(use-fg-bg no)
+(use-opacity-paint-mode yes)
+(use-brush yes)
+(use-dynamics yes)
+(use-mypaint-brush no)
+(use-gradient no)
+(use-pattern yes)
+(use-palette no)
+(use-font no)
+
+# end of GIMP tool preset file

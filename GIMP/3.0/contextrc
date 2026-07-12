@@ -1,0 +1,16 @@
+# GIMP user context
+
+(tool "gimp-pencil-tool")
+(paint-info "gimp-pencil")
+(foreground
+    (color "R'G'B'A u8" 4 "o\274o\377" 0))
+(brush "2. Hardness 050")
+(dynamics "Pressure Size")
+(mybrush "100% Opaque")
+(pattern "Pine")
+(gradient "FG to BG (RGB)")
+(palette "Colour History")
+(font "TeX Gyre Termes Italic")
+(tool-preset "Core Pointer")
+
+# end of user context

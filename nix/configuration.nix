@@ -1,36 +1,45 @@
-# System configuration file.
-# For everything software definitive.
+# Nix kernel configuration file.
+# For everything OS definitive.
 
 { config, pkgs, ... }:
 
 {
   imports = [
-    # Hardware scan results.
     ./hardware-configuration.nix
-
-    # Programs and packages.
     ./applications.nix
-
-    # Mozilla declaration.
-    ./mozilla.nix
   ];
 
+  system.stateVersion = "26.05";                                    # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+  nixpkgs.config.allowUnfree = true;                                # https://www.fsf.org/about
+
+  time.timeZone = "Europe/Rome";
+
+  i18n = {
+    defaultLocale = "en_GB.UTF-8";                                  # https://wiki.nixos.org/wiki/Locales
+    extraLocaleSettings = {
+      LC_ALL = "en_GB.UTF-8";
+    };
+  };
+
+  nix = {
+    nixPath = [                                                     # Configuration paths (defaults listed).
+      "nixos-config=/etc/nixos/configuration.nix"
+      "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
+    ];
+
+    settings.experimental-features = [ "nix-command" "flakes" ];    # Enable flakes.
+  };
+
   boot = {
-    # Bootloader.
-    # https://nixos.wiki/wiki/Bootloader
-    loader = {
+    kernelPackages = pkgs.linuxPackages_latest;                     # Latest Linux kernel.
+
+    loader = {                                                      # https://nixos.wiki/wiki/Bootloader
       efi = {
         canTouchEfiVariables = true;
         efiSysMountPoint = "/boot";
       };
 
-      # Systemd.
-      # https://wiki.nixos.org/wiki/Systemd
-      systemd-boot.enable = false;
-
-      # GRUB.
-      # https://wiki.nixos.org/wiki/GNU_GRUB
-      grub = {
+      grub = {                                                      # https://wiki.nixos.org/wiki/GNU_GRUB
         device = "nodev";
         enable = true;
         efiSupport = true;
@@ -49,115 +58,28 @@
         '';
       };
     };
-
-    # Latest Linux kernel.
-    kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  # System version.
-  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "25.11";
-
-  nix = {
-    # Experimental features.
-    settings.experimental-features = [ "nix-command" "flakes" ];
-
-    # Explicit pathing.
-    nixPath = [
-      "nixos-config=/etc/nixos/configuration.nix"
-      "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
-    ];
-  };
-
-  # Allow unfree packages.
-  nixpkgs.config.allowUnfree = true;
-
-  # Timezone.
-  time.timeZone = "Europe/Rome";
-
-  # Internationalisation.
-  i18n = {
-    defaultLocale = "en_GB.UTF-8";
-    extraLocaleSettings = {
-      LC_ADDRESS = "en_GB.UTF-8";
-      LC_IDENTIFICATION = "en_GB.UTF-8";
-      LC_MEASUREMENT = "en_GB.UTF-8";
-      LC_MONETARY = "en_GB.UTF-8";
-      LC_NAME = "en_GB.UTF-8";
-      LC_NUMERIC = "en_GB.UTF-8";
-      LC_PAPER = "en_GB.UTF-8";
-      LC_TELEPHONE = "en_GB.UTF-8";
-      LC_TIME = "en_GB.UTF-8";
-    };
-  };
-
-  # Account.
   users.users = {
-    # NOTE: Define <USER>.
-    arborodin = {
+    "arborodin" = {                                                 # NOTE: Define <USER>.
       isNormalUser = true;
       description = "♪~";
       extraGroups = [ "networkmanager" "wheel" ];
     };
   };
 
-  # Connectivity.
-  networking = {
-    # NOTE: Define <HOST>.
-    hostName = "idofront";
+  networking = {                                                    # https://wiki.nixos.org/wiki/Networking
+    hostName = "idofront";                                          # NOTE: Define <HOST>.
 
-    # Network Manager.
-    networkmanager = {
+    networkmanager = {                                              # https://wiki.nixos.org/wiki/NetworkManager
       enable = true;
       wifi.backend = "iwd";
     };
-
-    # Wireless support via wpa_supplicant.
-    wireless = {
-      enable = false;
-      networks = {
-        "name" = { psk = "password"; };
-      };
-    };
-
-    # Loopback explicit routing.
-    interfaces = {
-      lo = {
-        ipv4.addresses = [{
-          address = "127.0.0.1";
-          prefixLength = 8;
-        }];
-        ipv6.addresses = [{
-          address = "::1";
-          prefixLength = 128;
-        }];
-      };
-    };
-
-    # OpenSSH daemon (can't be disabled; comment out).
-    # openssh.enable = true;
-
-    # Firewall (enabled automatically).
-    # firewall = {
-    #   enable = false;
-    #   allowedTCPPorts = [ ... ];
-    #   allowedUDPPorts = [ ... ];
-    # };
-
-    # Proxy.
-    # proxy = {
-    #   default = "http://user:password@proxy:port/";
-    #   noProxy = "127.0.0.1,localhost,internal.domain";
-    # };
   };
 
-  # Realtime scheduling priority to user processes on demand.
-  # Optional but recommended for PulseAudio and PipeWire.
-  security.rtkit.enable = true;
-
   services = {
-    # Guix daemon.
     guix.enable = true;
+    # tailscale.enable = true;
 
     # X11 windowing system.
     xserver = {
@@ -167,43 +89,28 @@
         layout = "us";
         variant = "";
       };
-      # Touchpad support (enabled default in most desktopManager).
-      # libinput.enable = true;
     };
 
-    # PipeWire sound.
-    # https://nixos.wiki/wiki/PipeWire
-    pulseaudio.enable = false;
-    pipewire = {
+    pipewire = {                                                    # https://nixos.wiki/wiki/PipeWire
       enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      # To use JACK applications, uncomment this:
       # jack.enable = true;
-
-      # Use the example session manager (no others are packaged yet so this is enabled by default,
-      # no need to redefine it in your config for now).
-      # media-session.enable = true;
     };
 
-    # CUPS document printing.
-    printing.enable = true;
+    printing.enable = true;                                         # https://wiki.nixos.org/wiki/Printing
 
-    # KDE Plasma & Login Manager.
     desktopManager = {
-      # https://wiki.nixos.org/wiki/KDE
-      plasma6.enable = true;
+      plasma6.enable = true;                                        # https://wiki.nixos.org/wiki/KDE
     };
-    displayManager = {
-      # autoLogin.user = "arborodin";
 
-      # https://wiki.nixos.org/wiki/Plasma_Login_Manager
-      # plasma-login-manager.enable = true;
-      sddm = {
-        enable = true;
-        wayland.enable = true;
-      };
+    displayManager = {
+      plasma-login-manager.enable = true;                           # https://wiki.nixos.org/wiki/Plasma_Login_Manager
+
+      # autoLogin.user = "";
     };
   };
+
+  security.rtkit.enable = true;                                     # Realtime scheduling priority (recommended for audio).
 }

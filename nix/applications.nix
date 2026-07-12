@@ -5,13 +5,29 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    # ./mozilla.nix
+  ];
+
   # Programs to install in system profile.
   programs = {
-    # Git declaration.
+    # Firefox (temporary).
+    firefox.enable = true;
+
+    # Hyprland.
+    # https://wiki.nixos.org/wiki/Hyprland
+    # https://wiki.hypr.land/Nix/
+    hyprland.enable = true;
+
+    # Niri
+    # https://wiki.nixos.org/wiki/Niri
+    niri.enable = true;
+
+    # Git.
     # https://wiki.nixos.org/wiki/Git
     git.enable = true;
 
-    # Zsh declaration.
+    # Zsh.
     # https://wiki.nixos.org/wiki/Zsh
     zsh = {
       enable = false;
@@ -41,23 +57,14 @@
       ];
     };
 
-    # Neovim declaration.
+    # Neovim.
     # https://nixos.wiki/wiki/Neovim
     neovim = {
       enable = true;
       defaultEditor = true;
     };
 
-    # Hyprland declaration.
-    # https://wiki.nixos.org/wiki/Hyprland
-    # https://wiki.hypr.land/Nix/Hyprland-on-NixOS/
-    hyprland = {
-      enable = false;
-      xwayland.enable = true;
-      withUWSM = true;
-    };
-
-    # Foot declaration.
+    # Foot.
     foot = {
       enable = false;
       enableBashIntegration = true;
@@ -65,22 +72,17 @@
       enableZshIntegration = true;
       };
 
-    # Tmux declaration.
+    # Tmux.
     # https://nixos.wiki/wiki/Tmux
     tmux = {
       enable = false;
       clock24 = true;
     };
 
-    # OBS declaration.
+    # OBS.
     # https://wiki.nixos.org/wiki/OBS_Studio
     obs-studio = {
       enable = false;
-
-      # Nvidia hardware acceleration (optional).
-      package = ( pkgs.obs-studio.override {
-        cudaSupport = true;
-      });
 
       plugins = with pkgs.obs-studio-plugins; [
         wlrobs
@@ -90,14 +92,19 @@
         obs-gstreamer
         obs-vkcapture
         ];
-      };
 
-    # KDE Connect declaration.
+      # Nvidia hardware acceleration (optional).
+      package = ( pkgs.obs-studio.override {
+        cudaSupport = true;
+      });
+    };
+
+    # KDE Connect.
     # https://wiki.nixos.org/wiki/KDE_Connect
     kdeconnect.enable = false;
 
-    # Some programs need SUID wrappers; can be configured further
-    # or are started in user sessions.
+    # Some programs need SUID wrappers.
+    # Can be configured further or are started in user sessions.
     # mtr.enable = true;
     # gnupg.agent = {
     #   enable = true;
@@ -109,96 +116,40 @@
     # Packages to install in system profile.
     # https://search.nixos.org/packages
     systemPackages = with pkgs; [
-      # GParted declaration.
-      gparted
-
-      # EFIBootMgr declaration.
       efibootmgr
-
-      # Wget declaration.
-      wget
-
-      # Curl declaration.
+      gparted
+      deno
       curl
-
-      # YT-dlp declaration.
+      wget
       yt-dlp
-
-      # Tree declaration.
-      # tree
-
-      # Swaybg declaration.
-      # swaybg
-
-      # Flameshot declaration.
-      # https://wiki.nixos.org/wiki/Flameshot
-      # grim
-      # flameshot
-
-      # Vim declaration.
-      # https://nixos.wiki/wiki/Vim
-      vim
-
-      # VSCodium declaration.
-      # https://nixos.wiki/wiki/VSCodium
-      vscodium
-
-      # Kitty declaration.
-      # https://wiki.nixos.org/wiki/Kitty
-      kitty
-
-      # Ghostty declaration.
-      # ghostty
-
-      # MPV declaration.
-      # https://wiki.nixos.org/wiki/MPV
-      mpv
-
-      # Zathura declaration.
-      zathura
-
-      # LibreOffice declaration.
-      # https://nixos.wiki/wiki/LibreOffice
-      libreoffice-qt6-fresh
-
-      # GIMP declaration.
-      gimp
-
-      # Audacity declaration.
-      # audacity
-
-      # Aria2 declaration.
       aria2
-
-      # QBittorrent declaration.
       qbittorrent
-
-      # Mullvad declaration.
-      # https://wiki.nixos.org/wiki/Mullvad_VPN
-      # mullvad
+      flameshot                     # https://wiki.nixos.org/wiki/Flameshot
+      # grim
+      # gifski
+      # tree
+      kitty                         # https://wiki.nixos.org/wiki/Kitty
+      # ghostty
+      vim                           # https://nixos.wiki/wiki/Vim
+      vscodium                      # https://nixos.wiki/wiki/VSCodium
+      zathura
+      mpv                           # https://wiki.nixos.org/wiki/MPV
+      freetube
+      libreoffice-qt6-fresh         # https://nixos.wiki/wiki/LibreOffice
+      gimp
+      krita
+      # audacity
+      element-desktop
+      ruffle
+      ppsspp
+      rpcs3
+      # mullvad                     # https://wiki.nixos.org/wiki/Mullvad_VPN
       # mullvad-vpn
       # mullvad-browser
-
-      # Matrix declaration.
-      element-desktop
-
-      # Ruffle declaration.
-      ruffle
-
-      # PPSSPP declaration.
-      ppsspp
-
-      # RPCS3 declaration.
-      rpcs3
-
-      # Wine declaration.
-      # https://nixos.wiki/wiki/Wine
-      wineWow64Packages.stable
+      winetricks
+      wineWow64Packages.stable      # https://nixos.wiki/wiki/Wine
       wineWow64Packages.staging
       wineWow64Packages.waylandFull
-      winetricks
-
-      # KDE Packages declaration.
       # kdePackages.ark
       # kdePackages.kate
       # kdePackages.konsole

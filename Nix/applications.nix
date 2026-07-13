@@ -6,6 +6,7 @@
 
 {
   imports = [
+    ./applications-nonfree.nix
     # ./mozilla.nix
   ];
 

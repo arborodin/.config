@@ -61,7 +61,7 @@
     "arborodin" = {                                                 # NOTE: Define <USER>.
       isNormalUser = true;
       description = "♪~";
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = [ "root" "wheel" "networkmanager" ];            # NOTE: Use "root" at your own risk!
     };
   };
 

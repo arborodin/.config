@@ -27,6 +27,10 @@
     # https://wiki.nixos.org/wiki/Git
     git.enable = true;
 
+    # Mosh.
+    # https://wiki.nixos.org/wiki/Mosh
+    mosh.enable = false;
+
     # Zsh.
     # https://wiki.nixos.org/wiki/Zsh
     zsh = {
@@ -56,6 +60,10 @@
         "HIST_IGNORE_ALL_DUPS"
       ];
     };
+
+    # Yazi.
+    # https://wiki.nixos.org/wiki/Yazi
+    yazi.enable = false;
 
     # Neovim.
     # https://nixos.wiki/wiki/Neovim
@@ -103,8 +111,7 @@
     # https://wiki.nixos.org/wiki/KDE_Connect
     kdeconnect.enable = false;
 
-    # Some programs need SUID wrappers.
-    # Can be configured further or are started in user sessions.
+    # SUID wrappers.
     # mtr.enable = true;
     # gnupg.agent = {
     #   enable = true;
@@ -113,9 +120,7 @@
   };
 
   environment = {
-    # Packages to install in system profile.
-    # https://search.nixos.org/packages
-    systemPackages = with pkgs; [
+    systemPackages = with pkgs; [   # https://search.nixos.org/packages
       efibootmgr
       gparted
       deno
@@ -124,6 +129,9 @@
       yt-dlp
       aria2
       qbittorrent
+      # localsend
+      # rofi
+      vicinae                       # https://blog.ricardof.dev/vicinae-the-everything-launcher-for-linux/
       flameshot                     # https://wiki.nixos.org/wiki/Flameshot
       # grim
       # gifski
@@ -146,8 +154,8 @@
       # mullvad                     # https://wiki.nixos.org/wiki/Mullvad_VPN
       # mullvad-vpn
       # mullvad-browser
-      winetricks
-      wineWow64Packages.stable      # https://nixos.wiki/wiki/Wine
+      winetricks                    # https://nixos.wiki/wiki/Wine
+      wineWow64Packages.stable
       wineWow64Packages.staging
       wineWow64Packages.waylandFull
       # kdePackages.ark

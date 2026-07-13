@@ -19,6 +19,11 @@
     };
   };
 
+  console = {
+    keyMap = "us,ru";
+    font = "Lat2-Terminus16";                                       # https://wiki.nixos.org/wiki/Console_Fonts
+  };
+
   nix = {
     nixPath = [                                                     # Nix schema (default paths listed).
       "nixos-config=/etc/nixos/configuration.nix"
@@ -44,15 +49,9 @@
         useOSProber = true;
         extraEntriesBeforeNixOS = false;
         extraEntries = ''
-          menuentry "Reboot" {
-            reboot
-          }
-          menuentry "Poweroff" {
-            halt
-          }
-          menuentry "Firmware" {
-            fwsetup
-          }
+          menuentry "Reboot"   { reboot  }
+          menuentry "Poweroff" { halt    }
+          menuentry "Firmware" { fwsetup }
         '';
       };
     };
@@ -73,6 +72,10 @@
       enable = true;
       wifi.backend = "iwd";
     };
+  };
+
+  hardware = {
+    bluetooth.enable = true;                                        # https://wiki.nixos.org/wiki/Bluetooth
   };
 
   services = {
@@ -101,7 +104,12 @@
     printing.enable = true;                                         # https://wiki.nixos.org/wiki/Printing
 
     guix.enable = true;                                             # https://fzakaria.com/2026/06/05/the-guix-nix-abomination-leveraging-guix-derivations-in-nix
+    flatpak.enable = true;                                          # https://wiki.nixos.org/wiki/Flatpak
     # tailscale.enable = true;                                      # https://wiki.nixos.org/wiki/Tailscale
+    syncthing = {                                                   # https://wiki.nixos.org/wiki/Syncthing
+      enable = true;
+      openDefaultPorts = true;
+    };
   };
 
   security.rtkit.enable = true;                                     # Realtime scheduling priority (recommended for audio).

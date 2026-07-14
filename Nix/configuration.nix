@@ -1,10 +1,11 @@
-                                                                    # Nix kernel configuration file.
+                                                                    # Nix kernel file.
 { config, pkgs, ... }:                                              # For everything OS definitive.
 
 {
   imports = [
-    ./hardware-configuration.nix
-    ./applications.nix
+    ./apps.nix                                                      # Standalones.
+    ./apps-unfree.nix                                               # Unfree standalones.
+    ./hardware-configuration.nix                                    # Hardware scan. Do not modify!
   ];
 
   system.stateVersion = "26.05";                                    # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
@@ -25,12 +26,14 @@
   };
 
   nix = {
-    nixPath = [                                                     # Nix schema (default paths listed).
+    nixPath = [                                                     # Nix schema (default).
       "nixos-config=/etc/nixos/configuration.nix"
       "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
     ];
 
-    settings.experimental-features = [ "nix-command" "flakes" ];    # https://wiki.nixos.org/wiki/Flakes
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];           # https://wiki.nixos.org/wiki/Flakes
+    };
   };
 
   boot = {
@@ -58,21 +61,23 @@
   };
 
   users.users = {
-    "arborodin" = {                                                 # NOTE: Define <USER>.
+    "arborodin" = {                                                 # Define <USER>.
       isNormalUser = true;
       description = "♪~";
-      extraGroups = [ "root" "wheel" "networkmanager" ];            # NOTE: Use "root" at your own risk!
+      extraGroups = [ "wheel" "networkmanager" ];
     };
   };
 
   networking = {                                                    # https://wiki.nixos.org/wiki/Networking
-    hostName = "idofront";                                          # NOTE: Define <HOST>.
-
     networkmanager = {                                              # https://wiki.nixos.org/wiki/NetworkManager
       enable = true;
       wifi.backend = "iwd";
     };
+
+    hostName = "idofront";                                          # Define <HOST>.
   };
+
+  security.rtkit.enable = true;                                     # Realtime scheduling priority (recommended for audio).
 
   hardware = {
     bluetooth.enable = true;                                        # https://wiki.nixos.org/wiki/Bluetooth
@@ -102,6 +107,7 @@
     };
 
     printing.enable = true;                                         # https://wiki.nixos.org/wiki/Printing
+    blueman.enable = true;
 
     guix.enable = true;                                             # https://fzakaria.com/2026/06/05/the-guix-nix-abomination-leveraging-guix-derivations-in-nix
     flatpak.enable = true;                                          # https://wiki.nixos.org/wiki/Flatpak
@@ -111,6 +117,4 @@
       openDefaultPorts = true;
     };
   };
-
-  security.rtkit.enable = true;                                     # Realtime scheduling priority (recommended for audio).
 }

@@ -2,5 +2,5 @@
 
 #!/bin/sh
 
-chown -R +1000 /etc/nixos
-ln -s /etc/nixos /home/"$USER"/.nix
+sudo chown -R +1000 /etc/nixos
+ln -sfn /etc/nixos /home/"$USER"/.nix

@@ -22,7 +22,7 @@
 
   console = {
     keyMap = "us,ru";
-    font = "Lat2-Terminus16";                                       # https://wiki.nixos.org/wiki/Console_Fonts
+    # font = "Lat2-Terminus16";                                     # https://wiki.nixos.org/wiki/Console_Fonts
   };
 
   nix = {

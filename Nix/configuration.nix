@@ -3,13 +3,35 @@
 
 {
   imports = [
-    ./apps.nix                                                      # Standalones.
-    ./apps-unfree.nix                                               # Unfree standalones.
     ./hardware-configuration.nix                                    # Hardware scan. Do not modify!
+    ./applications.nix                                              # Standalones.
   ];
 
   system.stateVersion = "26.05";                                    # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  nixpkgs.config.allowUnfree = true;                                # https://www.fsf.org/about
+
+  nix = {
+    nixPath = [                                                     # Nix schema (default).
+      "nixos-config=/etc/nixos/configuration.nix"
+      "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
+    ];
+
+    settings = {
+      experimental-features = [                                     # https://wiki.nixos.org/wiki/Flakes
+        "nix-command"
+        "flakes"
+      ];
+    };
+  };
+
+  nixpkgs = {
+    config = {
+      allowUnfree = false;                                          # https://www.fsf.org/about
+      allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ # Whitelist Steam.
+        "steam"
+        "steam-unwrapped"
+      ];
+    };
+  };
 
   time.timeZone = "Europe/Rome";
 
@@ -23,17 +45,6 @@
   console = {
     keyMap = "us,ru";
     # font = "Lat2-Terminus16";                                     # https://wiki.nixos.org/wiki/Console_Fonts
-  };
-
-  nix = {
-    nixPath = [                                                     # Nix schema (default).
-      "nixos-config=/etc/nixos/configuration.nix"
-      "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
-    ];
-
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];           # https://wiki.nixos.org/wiki/Flakes
-    };
   };
 
   boot = {

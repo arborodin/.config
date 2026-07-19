@@ -25,11 +25,7 @@
 
   nixpkgs = {
     config = {
-      allowUnfree = false;                                          # https://www.fsf.org/about
-      allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ # Whitelist Steam.
-        "steam"
-        "steam-unwrapped"
-      ];
+      allowUnfree = true;                                           # https://www.fsf.org/about
     };
   };
 

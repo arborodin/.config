@@ -19,6 +19,19 @@
       experimental-features = [                                     # https://wiki.nixos.org/wiki/Flakes
         "nix-command" "flakes"
       ];
+
+      # auto-optimise-store = true;
+    };
+
+    optimise = {                                                    # https://wiki.nixos.org/wiki/Storage_optimization
+      automatic = true;
+      dates = [ "00:00" ];
+    };
+
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
     };
   };
 

@@ -18,11 +18,15 @@
     hyprland.enable = true;                     # https://wiki.nixos.org/wiki/Hyprland      # https://wiki.hypr.land/Nix
     niri.enable = true;                         # https://wiki.nixos.org/wiki/Niri
     git.enable = true;                          # https://wiki.nixos.org/wiki/Git
-    appimage.enable = true;                     # https://wiki.nixos.org/wiki/Appimage
     mosh.enable = false;                        # https://wiki.nixos.org/wiki/Mosh
     kdeconnect.enable = false;                  # https://wiki.nixos.org/wiki/KDE_Connect
     steam.enable = true;                        # https://wiki.nixos.org/wiki/Steam         # https://wiki.nixos.org/wiki/Games
     yazi.enable = false;                        # https://wiki.nixos.org/wiki/Yazi
+
+    appimage = {                                # https://wiki.nixos.org/wiki/Appimage
+      enable = true;
+      binfmt = true;
+    };
 
     neovim = {                                  # https://nixos.wiki/wiki/Neovim
       enable = true;

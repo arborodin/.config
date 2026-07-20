@@ -14,7 +14,6 @@
     # };
 
     firefox.enable = true;                      # https://wiki.nixos.org/wiki/Firefox
-    chromium.enable = true;                     # https://wiki.nixos.org/wiki/Chromium
     hyprland.enable = true;                     # https://wiki.nixos.org/wiki/Hyprland      # https://wiki.hypr.land/Nix
     niri.enable = true;                         # https://wiki.nixos.org/wiki/Niri
     git.enable = true;                          # https://wiki.nixos.org/wiki/Git
@@ -121,6 +120,7 @@
       joplin-cli
       joplin-desktop
       element-desktop
+      chromium                                  # https://wiki.nixos.org/wiki/Chromium
       legcord                                   # https://wiki.nixos.org/wiki/Discord
       ruffle
       ppsspp

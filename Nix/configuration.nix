@@ -89,6 +89,11 @@
   security.rtkit.enable = true;                                     # Realtime scheduling priority (recommended for audio).
 
   hardware = {
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
+
     bluetooth.enable = true;                                        # https://wiki.nixos.org/wiki/Bluetooth
   };
 

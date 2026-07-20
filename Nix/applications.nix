@@ -1,5 +1,5 @@
                                                 # Standalones.
-{ config, pkgs, ... }:                          # For everything DE integrative.
+{ config, pkgs, lib, ... }:                     # For everything DE integrative.
 
 {
   imports = [

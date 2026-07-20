@@ -1,5 +1,5 @@
                                                                     # Nix kernel file.
-{ config, pkgs, ... }:                                              # For everything OS definitive.
+{ config, pkgs, lib, ... }:                                         # For everything OS definitive.
 
 {
   imports = [
@@ -17,15 +17,17 @@
 
     settings = {
       experimental-features = [                                     # https://wiki.nixos.org/wiki/Flakes
-        "nix-command"
-        "flakes"
+        "nix-command" "flakes"
       ];
     };
   };
 
   nixpkgs = {
     config = {
-      allowUnfree = true;                                           # https://www.fsf.org/about
+      # allowUnfree = true;                                         # https://www.fsf.org/about
+      allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ # https://www.gnu.org/philosophy/nonfree-games.html
+        "rpcs3" "steam" "steam-unwrapped"
+      ];
     };
   };
 

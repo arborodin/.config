@@ -96,6 +96,11 @@
       wifi.backend = "iwd";
     };
 
+    firewall = {                                                    # https://wiki.nixos.org/wiki/Firewall
+      enable = true;                                                # Enabled automatically.
+      allowedTCPPorts = [ 80 443 ];                                 # Localhost ports.
+    };
+
     hostName = "idofront";                                          # Define <HOST>.
   };
 
@@ -121,8 +126,7 @@
 
     displayManager = {
       plasma-login-manager.enable = true;                           # https://wiki.nixos.org/wiki/Plasma_Login_Manager
-
-      # autoLogin.user = "";
+      # autoLogin.user = "";                                        # Passkey-less login.
     };
 
     pipewire = {                                                    # https://wiki.nixos.org/wiki/PipeWire
@@ -134,11 +138,13 @@
     };
 
     printing.enable = true;                                         # https://wiki.nixos.org/wiki/Printing
-    blueman.enable = true;
+    blueman.enable = true;                                          # Bluetooth Manager.
 
     guix.enable = true;                                             # https://fzakaria.com/2026/06/05/the-guix-nix-abomination-leveraging-guix-derivations-in-nix
     flatpak.enable = true;                                          # https://wiki.nixos.org/wiki/Flatpak
-    # tailscale.enable = true;                                      # https://wiki.nixos.org/wiki/Tailscale
+
+    openssh.enable = false;                                         # https://wiki.nixos.org/wiki/SSH
+    tailscale.enable = false;                                       # https://wiki.nixos.org/wiki/Tailscale
     syncthing = {                                                   # https://wiki.nixos.org/wiki/Syncthing
       enable = true;
       openDefaultPorts = true;

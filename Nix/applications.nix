@@ -108,6 +108,7 @@
       # tree
       kitty                                     # https://wiki.nixos.org/wiki/Kitty
       # ghostty
+      # alacritty
       vim                                       # https://nixos.wiki/wiki/Vim
       vscodium                                  # https://nixos.wiki/wiki/VSCodium
       zathura
@@ -119,8 +120,10 @@
       # audacity
       joplin-cli
       joplin-desktop
+      nextcloud-client                          # https://wiki.nixos.org/wiki/Nextcloud
       element-desktop
-      chromium                                  # https://wiki.nixos.org/wiki/Chromium
+      rssguard
+      # chromium                                # https://wiki.nixos.org/wiki/Chromium
       legcord                                   # https://wiki.nixos.org/wiki/Discord
       ruffle
       ppsspp
@@ -136,11 +139,15 @@
       # kdePackages.kate
       # kdePackages.konsole
       # kdePackages.yakuake
-      # kdePackages.dolphin
+      # kdePackages.dolphin                     # https://wiki.nixos.org/wiki/Dolphin
+      # kdePackages.kio
+      # kdePackages.kio-fuse
+      # kdePackages.kio-extras
       # kdePackages.kdenlive
     ];
-    variables = {
+    variables = {                               # https://wiki.nixos.org/wiki/Environment_variables
       EDITOR = "nvim";
+      TERMINAL = "kitty";
     };
   };
 }
